@@ -9,8 +9,8 @@ import urllib
 print """
 ########################
 #                      #
-#    SMS Spammer       #
-#                      #
+#   Open Redirection   #
+#       Scanner        #
 #   By: KendoClaw1     #
 #                      #
 ########################
