@@ -6,7 +6,6 @@ import argparse
 import os
 import urllib
  
-
 print """
 ########################
 #                      #
@@ -16,14 +15,14 @@ print """
 #                      #
 ########################
 """
-print "To stop the script Press CTRL + C"
+print "To stop the script Press CTRL + C\n"
 
- 
+
 parser = argparse.ArgumentParser(description="Open Redirection Scanner")
 parser.add_argument('-u',help="Url to test",metavar="URL")
 parser.add_argument('-p',help="Parameter based scan (Uses a diffrent payload list),you must Specify a domain to be used in the payloads",metavar="domain.com")
 parser.add_argument('-f',help="load URLs from a file (Optional)",metavar="FILEPATH")
-parser.add_argument('-c',help="scan with a specific Cookie (Optional)",metavar="FILEPATH")
+parser.add_argument('-c',help="scan with a specific Cookie (Optional)",metavar="Cookie=value")
 parser.add_argument('-v',help="Verbose mode, Must take any value (Optional)", action='store_true')
 args = parser.parse_args()
 
@@ -51,7 +50,7 @@ def main():
 		urltoscan = args.u
 		scanurl(urltoscan)
 	else:
-		print os.system("python "+__file__+" -h")
+		print "Error: Please specify a domain or a file to scan"
 
 
 
