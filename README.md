@@ -1,7 +1,7 @@
 # Open-Redirection-Scanner
 a python tool used to scan for Open redirection vulnerability
 
-###How to Use:
+### How to Use:
 
 what makes this tool diffrent is that you can use it for auth-based scanning because you can provide a cookie if u want, example:
 
