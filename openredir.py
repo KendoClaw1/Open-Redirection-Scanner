@@ -23,7 +23,7 @@ parser.add_argument('-u',help="Url to test",metavar="URL")
 parser.add_argument('-p',help="Parameter based scan (Uses a diffrent payload list),you must Specify a domain to be used in the payloads",metavar="domain.com")
 parser.add_argument('-f',help="load URLs from a file (Optional)",metavar="FILEPATH")
 parser.add_argument('-c',help="scan with a specific Cookie (Optional)",metavar="Cookie=value")
-parser.add_argument('-v',help="Verbose mode, Must take any value (Optional)", action='store_true')
+parser.add_argument('-v',help="Verbose mode(Optional)", action='store_true')
 args = parser.parse_args()
 
 
