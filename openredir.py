@@ -5,12 +5,14 @@ import requests
 import argparse
 import os
 import urllib
+import socket
+from urllib2 import urlopen, URLError, HTTPError
  
 print """
 ########################
 #                      #
-#   Open Redirection   #
-#       Scanner        #
+#    SMS Spammer       #
+#                      #
 #   By: KendoClaw1     #
 #                      #
 ########################
@@ -23,7 +25,7 @@ parser.add_argument('-u',help="Url to test",metavar="URL")
 parser.add_argument('-p',help="Parameter based scan (Uses a diffrent payload list),you must Specify a domain to be used in the payloads",metavar="domain.com")
 parser.add_argument('-f',help="load URLs from a file (Optional)",metavar="FILEPATH")
 parser.add_argument('-c',help="scan with a specific Cookie (Optional)",metavar="Cookie=value")
-parser.add_argument('-v',help="Verbose mode(Optional)", action='store_true')
+parser.add_argument('-v',help="Verbose mode", action='store_true')
 args = parser.parse_args()
 
 
@@ -48,9 +50,25 @@ def main():
 		scanlist(domainlist)
 	elif args.u:
 		urltoscan = args.u
+		print "Scanning..."
 		scanurl(urltoscan)
 	else:
 		print "Error: Please specify a domain or a file to scan"
+
+
+
+def checkup(url):
+	socket.setdefaulttimeout( 23 )  # timeout in seconds
+
+	try :
+	    response = urlopen( url )
+	except HTTPError, e:
+	    return "notvalid"
+	except URLError, e:
+	    return "notvalid"
+	else :
+	    html = response.read()
+	    return "up"
 
 
 
@@ -60,7 +78,7 @@ def scanurl(url):
 	else:
 		headers = {"User-Agent": "Mozilla/5.0 (X11; Linux i686; rv:52.0) Gecko/20100101"}
 
-	print "Scanning..."
+
 
 	for payload in payloads:
 		target = url+payload
@@ -83,18 +101,26 @@ def scanlist(domains):
 	with open(domains,'r') as l:
 		urls = [m.strip() for m in l]
 
+
+	protocol = raw_input("Choose a protocol to be set in case a url in the file didn't have a specific protocol: \n1- HTTP\n2- HTTPS\n> ")
+	if protocol == "1":
+		protocol = "http://"
+	elif protocol == "2":
+		protocol = "https://"
+	else:
+		print "Unknown choice"
+
 	print "Scanning..."
-
 	for url in urls:
-		for payload in payloads:
-			target = url+payload
-			req = requests.get(target,headers=headers,allow_redirects=False)
+		if url.startswith("http://") or url.startswith("https://"):
+			bfr = url
+		else:
+			bfr = protocol+url
 
-			if args.v:
-				print target+"  --"+str(req.status_code)
-
-			if "Location" in req.headers and req.headers["Location"] == payload:
-				print "\nVULNERABLE: "+url + payload
+		if checkup(bfr) == "up":
+			scanurl(bfr)
+		else:
+			print "Host: "+bfr+" is down."
 
 
 
