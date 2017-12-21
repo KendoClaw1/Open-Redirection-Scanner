@@ -109,6 +109,7 @@ def scanlist(domains):
 		protocol = "https://"
 	else:
 		print "Unknown choice"
+		exit()
 
 	print "Scanning..."
 	for url in urls:
