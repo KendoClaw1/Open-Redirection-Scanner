@@ -90,7 +90,7 @@ def scanurl(url):
 
 		if "Location" in req.headers and  urllib.unquote(payload).decode('utf8') in req.headers["Location"]:
 			print "\nMay Be VULNERABLE: "+url + payload
-			print "\nLanding Page: "+req.headers['Location']
+			print "\nLanding Page: "+str(requests.get(target,headers=headers).url)
 
 
 def scanlist(domains):
