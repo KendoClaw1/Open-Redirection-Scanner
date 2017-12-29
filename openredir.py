@@ -11,7 +11,8 @@ from urllib2 import urlopen, URLError, HTTPError
 print """
 ########################
 #                      #
-#    SMS Spammer       #
+#   Open Redirection   #
+#       Scanner        #
 #                      #
 #   By: KendoClaw1     #
 #                      #
@@ -88,7 +89,8 @@ def scanurl(url):
 			print target+"  --"+str(req.status_code)
 
 		if "Location" in req.headers and  urllib.unquote(payload).decode('utf8') in req.headers["Location"]:
-			print "\nVULNERABLE: "+url + payload
+			print "\nMay Be VULNERABLE: "+url + payload
+			print "\nLanding Page: "+req.headers['Location']
 
 
 def scanlist(domains):
